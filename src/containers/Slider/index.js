@@ -10,15 +10,27 @@ const Slider = () => {
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
     new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
   );
+
+  
+  // const nextCard = () => {
+  //   setTimeout(
+  //     () => setIndex(index < byDateDesc.length ? index + 1 : 0),
+  //     5000
+  //   );
+  // };
+  // useEffect(() => {
+  //   nextCard();
+  // });
+
+  // code corrigé du bug boucle infini****
   const nextCard = () => {
-    setTimeout(
-      () => setIndex(index < byDateDesc.length ? index + 1 : 0),
-      5000
-    );
+    setIndex((prevIndex) => (prevIndex < byDateDesc.length - 1 ? prevIndex + 1 : 0));
   };
   useEffect(() => {
-    nextCard();
-  });
+    const interval = setInterval(nextCard, 5000);
+    return () => clearInterval(interval)
+  }, [byDateDesc.length, nextCard]);
+
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (
