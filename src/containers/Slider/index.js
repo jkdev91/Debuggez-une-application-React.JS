@@ -27,9 +27,9 @@ const Slider = () => {
     setIndex((prevIndex) => (prevIndex < byDateDesc.length - 1 ? prevIndex + 1 : 0));
   };
   useEffect(() => {
-    const interval = setInterval(nextCard, 5000);
-    return () => clearInterval(interval)
-  }, [byDateDesc.length, nextCard]);
+    const interval = setTimeout(nextCard, 5000);
+    return () => clearTimeout(interval)
+  }, [byDateDesc?.length, nextCard]);
 
   return (
     <div className="SlideCardList">
