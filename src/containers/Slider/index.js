@@ -36,7 +36,7 @@ const Slider = () => {
       {byDateDesc?.map((event, idx) => (
         <>
           <div
-            key={event.title}
+            key={`${byDateDesc.idx}`} // modifier key pour creer une cles unique
             className={`SlideCard SlideCard--${
               index === idx ? "display" : "hide"
             }`}
@@ -54,10 +54,10 @@ const Slider = () => {
             <div className="SlideCard__pagination">
               {byDateDesc.map((_, radioIdx) => (
                 <input
-                  key={`${event.id}`}
+                  key={`${byDateDesc.radioIdx}`} // modifier key pour creer une cles unique
                   type="radio"
                   name="radio-button"
-                  checked={idx === radioIdx}
+                  checked={index === radioIdx} // check index diapo avec index bouton radio
                 />
               ))}
             </div>
