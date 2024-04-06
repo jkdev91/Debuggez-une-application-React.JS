@@ -57,7 +57,9 @@ const Slider = () => {
                   key={ev.cover} // modifier key pour creer une cles unique
                   type="radio"
                   name="radio-button"
+                  readOnly
                   checked={index === radioIdx} // check index diapo avec index bouton radio
+                  // onChange={() => setIndex(radioIdx)}
                 />
               ))}
             </div>
