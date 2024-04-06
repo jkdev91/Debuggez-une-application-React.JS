@@ -16,6 +16,7 @@ const Page = () => {
   const {data} = useData()
   const events = data?.events?.sort((a, b) => new Date(b.date) - new Date(a.date));
   const last = events?.[0];
+
   return <>
     <header>
       <Menu />
@@ -118,13 +119,17 @@ const Page = () => {
     <footer role="contentinfo" className="row">
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
-        <EventCard
-          imageSrc={last?.cover}
-          title={last?.title}
-          date={new Date(last?.date)}
-          small
-          label={last?.type}
-        />
+        {last?.cover ? (
+          <EventCard
+            imageSrc={last.cover}
+            title={last.title}
+            date={new Date(last.date)}
+            small
+            label={last.type}
+          />
+        ) : (
+          <div>Aucune prestation récente disponible</div>
+        )}
       </div>
       <div className="col contact">
         <h3>Contactez-nous</h3>
