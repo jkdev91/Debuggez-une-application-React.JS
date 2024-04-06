@@ -8,7 +8,7 @@ const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
-    new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
+    new Date(evtA.date) > new Date(evtB.date) ? -1 : 1
   );
 
   
@@ -36,7 +36,7 @@ const Slider = () => {
       {byDateDesc?.map((event, idx) => (
         <>
           <div
-            key={`${byDateDesc.idx}`} // modifier key pour creer une cles unique
+            key={event.title} // modifier key pour creer une cles unique
             className={`SlideCard SlideCard--${
               index === idx ? "display" : "hide"
             }`}
@@ -52,9 +52,9 @@ const Slider = () => {
           </div>
           <div className="SlideCard__paginationContainer">
             <div className="SlideCard__pagination">
-              {byDateDesc.map((_, radioIdx) => (
+              {byDateDesc.map((ev, radioIdx) => (
                 <input
-                  key={`${byDateDesc.radioIdx}`} // modifier key pour creer une cles unique
+                  key={ev.cover} // modifier key pour creer une cles unique
                   type="radio"
                   name="radio-button"
                   checked={index === radioIdx} // check index diapo avec index bouton radio
