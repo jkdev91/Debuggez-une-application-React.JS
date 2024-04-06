@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import Home from "./index";
+import Modal from "../../containers/Modal";
 
 describe("When Form is created", () => {
   it("a list of fields card is displayed", async () => {
@@ -37,6 +38,9 @@ describe("When a page is created", () => {
   })
   it("a footer is displayed", () => {
     // to implement
+    render(<Home />);
+    const footer = screen.getByRole("contentinfo");
+    expect(footer).toBeInTheDocument();
   })
   it("an event card, with the last event, is displayed", () => {
     // to implement

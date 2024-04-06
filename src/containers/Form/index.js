@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, /* useRef */ } from "react";
 import PropTypes from "prop-types";
 import Field, { FIELD_TYPES } from "../../components/Field";
 import Select from "../../components/Select";
@@ -6,8 +6,40 @@ import Button, { BUTTON_TYPES } from "../../components/Button";
 
 const mockContactApi = () => new Promise((resolve) => { setTimeout(resolve, 1000); })
 
+// const mockContactApi = () => new Promise((resolve,reject) => { 
+//   setTimeout(() => {
+//     if (Math.random() < 0.5) {
+//       resolve();
+//     } else {
+//       reject(new error('erreur lors de l\'envoie du message'))
+//     }
+//   }
+//   ); })
+
+
+
 const Form = ({ onSuccess, onError }) => {
   const [sending, setSending] = useState(false);
+  // const [formValid, setFormValid] = useState(false);
+
+  // const nameField = useRef(null);
+  // const firstNameField = useRef(null);
+  // const emailField = useRef(null);
+  // const messageField = useRef(null);
+
+  // const [confirmationMessage, setConfirmationMessage] = useState(null);
+  // const [errorMessage, setErrorMessage] = useState(null);
+
+  // const validateForm = useCallback(() => {
+  //   const isValid =
+  //     nameField.current.value.trim() !== "" &&
+  //     firstNameField.current.value.trim() !== "" &&
+  //     emailField.current.value.trim() !== "" &&
+  //     messageField.current.value.trim() !== "";
+  //   setFormValid(isValid);
+  // }, [nameField, firstNameField, emailField, messageField]);
+
+
   const sendContact = useCallback(
     async (evt) => {
       evt.preventDefault();
@@ -16,19 +48,20 @@ const Form = ({ onSuccess, onError }) => {
       try {
         await mockContactApi();
         setSending(false);
+        onSuccess()
       } catch (err) {
         setSending(false);
         onError(err);
       }
     },
-    [onSuccess, onError]
+    [onSuccess, onError],
   );
   return (
     <form onSubmit={sendContact}>
       <div className="row">
         <div className="col">
-          <Field placeholder="" label="Nom" />
-          <Field placeholder="" label="Prénom" />
+          <Field placeholder="" label="Nom" /* ref={nameField} onChange={validateForm} */ />
+          <Field placeholder="" label="Prénom" /* ref={firstNameField} onChange={validateForm} */ />
           <Select
             selection={["Personel", "Entreprise"]}
             onChange={() => null}
@@ -36,8 +69,8 @@ const Form = ({ onSuccess, onError }) => {
             type="large"
             titleEmpty
           />
-          <Field placeholder="" label="Email" />
-          <Button type={BUTTON_TYPES.SUBMIT} disabled={sending}>
+          <Field placeholder="" label="Email" /* ref={emailField} onChange={validateForm} */ />
+          <Button type={BUTTON_TYPES.SUBMIT} disabled={sending /* || !formValid */ }>
             {sending ? "En cours" : "Envoyer"}
           </Button>
         </div>
@@ -46,6 +79,8 @@ const Form = ({ onSuccess, onError }) => {
             placeholder="message"
             label="Message"
             type={FIELD_TYPES.TEXTAREA}
+            // ref={messageField}
+            // onChange={validateForm}
           />
         </div>
       </div>

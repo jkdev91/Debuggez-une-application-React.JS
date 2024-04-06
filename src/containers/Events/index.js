@@ -10,7 +10,7 @@ import "./style.css";
 const PER_PAGE = 9;
 
 const EventList = () => {
-  const { data, error } = useData();
+  const { data, error} = useData();
   const [type, setType] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const filteredEvents = (
@@ -46,6 +46,8 @@ const EventList = () => {
       {error && <div>An error occured</div>}
       {data === null ? (
         "loading"
+      // {/* {loading ? (
+      //   <div>Loading...</div>   */}
       ) : (
         <>
           <h3 className="SelectTitle">Catégories</h3>

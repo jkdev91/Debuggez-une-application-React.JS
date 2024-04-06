@@ -14,6 +14,11 @@ describe("When Events is created", () => {
     it("the success action is called", async () => {
       const onSuccess = jest.fn();
       render(<Form onSuccess={onSuccess} />);
+
+      // Vérifier l'état du bouton
+      // const submitButton = await screen.getByRole('button', { name: 'Envoyer' });
+      // expect(submitButton).toBeEnabled();
+
       fireEvent(
         await screen.findByTestId("button-test-id"),
         new MouseEvent("click", {
