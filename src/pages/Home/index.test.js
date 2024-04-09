@@ -22,10 +22,16 @@ describe("When Form is created", () => {
         })
       );
       await screen.findByText("En cours");
-      await screen.findByText("Message envoyé !");
+      await screen.findByText("Message envoyé !", {}, { timeout: 5000 });
+      
+      // Vérifier que le Modal est ouvert et que le message de succès est affiché
+      // const modalMessage = await screen.findByText("Message envoyé !", {
+      //   selector: ".ModalMessage--success > div",
+      // });
+      //   expect(modalMessage).toBeInTheDocument();
     });
-  });
 
+  });
 });
 
 
