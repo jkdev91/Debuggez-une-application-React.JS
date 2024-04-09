@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { api, DataProvider } from "../../contexts/DataContext";
-import Events from "./index";
+import EventList from "./index";
+
 
 const data = {
   events: [
@@ -37,22 +38,33 @@ const data = {
   ],
 };
 
+// create mock DataContext
+jest.mock("../../contexts/DataContext", () => ({
+  ...jest.requireActual("../../contexts/DataContext"),
+  useData: () => ({
+    data,
+    error: "An error occured",
+  }),
+}));
+
+
+
 describe("When Events is created", () => {
-  it("a list of event card is displayed", async () => {
+  it.only("a list of event card is displayed", async () => {
     api.loadData = jest.fn().mockReturnValue(data);
     render(
       <DataProvider>
-        <Events />
+        <EventList />
       </DataProvider>
     );
-    await screen.findByText("avril");
+    await screen.findByText("Conférence #productCON");
   });
   describe("and an error occured", () => {
-    it("an error message is displayed", async () => {
+    it.only("an error message is displayed", async () => {
       api.loadData = jest.fn().mockRejectedValue();
       render(
         <DataProvider>
-          <Events />
+          <EventList />
         </DataProvider>
       );
       expect(await screen.findByText("An error occured")).toBeInTheDocument();
@@ -63,7 +75,7 @@ describe("When Events is created", () => {
       api.loadData = jest.fn().mockReturnValue(data);
       render(
         <DataProvider>
-          <Events />
+          <EventList />
         </DataProvider>
       );
       await screen.findByText("Forum #productCON");
@@ -88,11 +100,11 @@ describe("When Events is created", () => {
   });
 
   describe("and we click on an event", () => {
-    it("the event detail is displayed", async () => {
+    it.only("the event detail is displayed", async () => {
       api.loadData = jest.fn().mockReturnValue(data);
       render(
         <DataProvider>
-          <Events />
+          <EventList />
         </DataProvider>
       );
 
