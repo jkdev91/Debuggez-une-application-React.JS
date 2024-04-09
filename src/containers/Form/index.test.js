@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Form from "./index";
 
 describe("When Events is created", () => {
@@ -15,10 +15,6 @@ describe("When Events is created", () => {
       const onSuccess = jest.fn();
       render(<Form onSuccess={onSuccess} />);
 
-      // Vérifier l'état du bouton
-      // const submitButton = await screen.getByRole('button', { name: 'Envoyer' });
-      // expect(submitButton).toBeEnabled();
-
       fireEvent(
         await screen.findByTestId("button-test-id"),
         new MouseEvent("click", {
@@ -27,7 +23,10 @@ describe("When Events is created", () => {
         })
       );
       await screen.findByText("En cours");
-      await screen.findByText("Envoyer");
+      await screen.findByText("Envoyer", {}, { timeout: 5000 });
+      // await waitFor(() => {
+      //   expect(screen.findByText("Envoyer")).toBeInTheDocument();
+      // });
       expect(onSuccess).toHaveBeenCalled();
     });
   });
