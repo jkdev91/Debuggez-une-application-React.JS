@@ -50,7 +50,7 @@ jest.mock("../../contexts/DataContext", () => ({
 
 
 describe("When Events is created", () => {
-  it.only("a list of event card is displayed", async () => {
+  it("a list of event card is displayed", async () => {
     api.loadData = jest.fn().mockReturnValue(data);
     render(
       <DataProvider>
@@ -60,7 +60,7 @@ describe("When Events is created", () => {
     await screen.findByText("Conférence #productCON");
   });
   describe("and an error occured", () => {
-    it.only("an error message is displayed", async () => {
+    it("an error message is displayed", async () => {
       api.loadData = jest.fn().mockRejectedValue();
       render(
         <DataProvider>
@@ -71,7 +71,7 @@ describe("When Events is created", () => {
     });
   });
   describe("and we select a category", () => {
-    it.only("an filtered list is displayed", async () => {
+    it("an filtered list is displayed", async () => {
       api.loadData = jest.fn().mockReturnValue(data);
       render(
         <DataProvider>
@@ -100,7 +100,7 @@ describe("When Events is created", () => {
   });
 
   describe("and we click on an event", () => {
-    it.only("the event detail is displayed", async () => {
+    it("the event detail is displayed", async () => {
       api.loadData = jest.fn().mockReturnValue(data);
       render(
         <DataProvider>
