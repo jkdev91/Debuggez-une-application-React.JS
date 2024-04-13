@@ -24,9 +24,6 @@ describe("When Events is created", () => {
       );
       await screen.findByText("En cours");
       await screen.findByText("Envoyer", {}, { timeout: 5000 });
-      // await waitFor(() => {
-      //   expect(screen.findByText("Envoyer")).toBeInTheDocument();
-      // });
       expect(onSuccess).toHaveBeenCalled();
     });
   });
